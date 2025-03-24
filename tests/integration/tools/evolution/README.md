@@ -37,12 +37,3 @@ To run the unit tests:
 # Run from the project root directory
 pytest tests/unit/tools/test_evolution_agent.py
 ```
-
-## Test Coverage
-
-To generate test coverage for the Evolution Agent:
-
-```bash
-# Run from the project root directory
-pytest tests/unit/tools/test_evolution_agent.py tests/integration/tools/evolution/ --cov=alphaswarm.tools.evolution --cov-report=term
-```
