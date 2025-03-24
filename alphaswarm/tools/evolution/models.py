@@ -37,3 +37,8 @@ class ImplementedSuggestion(BaseModel):
     metrics_after: Optional[Dict[str, float]] = Field(None, description="Metrics after implementation (if analyzed)")
     success_rating: Optional[float] = Field(None, description="User rating of success (0-1)")
     notes: Optional[str] = Field(None, description="User notes about implementation")
+
+class SuggestionList(list):
+    """A list container for ImprovementSuggestion objects"""
+    def __init__(self, suggestions=None):
+        super().__init__(suggestions or [])

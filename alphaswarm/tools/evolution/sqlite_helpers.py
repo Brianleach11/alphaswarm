@@ -2,7 +2,7 @@ import sqlite3
 import json
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
-from models import AgentAction, PerformanceMetric, ImprovementSuggestion, ImplementedSuggestion
+from .models import AgentAction, PerformanceMetric, ImprovementSuggestion, ImplementedSuggestion
 
 def create_agent_tables(db_name: str) -> bool:
     conn = create_connection(db_name)
@@ -68,7 +68,6 @@ def get_latest_metrics(db_name: str) -> Dict[str, float]:
     return {row[0]: row[1] for row in rows}
 
 def get_action(db_name: str, timestamp: datetime) -> AgentAction:
-    from models import AgentAction
     conn = create_connection(db_name)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM actions WHERE timestamp = ?", (timestamp.isoformat(),))
@@ -324,7 +323,9 @@ def prune_all_data(db_name: str) -> bool:
     return True
 
 def create_connection(db_name: str) -> sqlite3.Connection:
-    conn = sqlite3.connect(f"{db_name}.db")
+    if not db_name.endswith('.db'):
+        db_name = f"{db_name}.db"
+    conn = sqlite3.connect(db_name)
     return conn
 
 def create_table(conn, table_name, columns) -> None:

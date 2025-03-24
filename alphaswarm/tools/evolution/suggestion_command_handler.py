@@ -1,5 +1,6 @@
 from typing import Optional   
 import re
+from .sqlite_helpers import prune_all_data
 
 class SuggestionCommandHandler:
     def __init__(self, evolution_agent):
@@ -127,5 +128,5 @@ class SuggestionCommandHandler:
         return f"Suggestion #{impl_num} rated successfully with score {rating:.2f}/1.0"
         
     def _cmd_prune_data(self, args: str) -> str:
-        self.agent.prune_all_data(self.agent.db_name)
+        prune_all_data(self.agent.db_name)
         return "All data has been pruned."
